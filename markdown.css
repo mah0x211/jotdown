@@ -1,0 +1,285 @@
+html * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+button {
+    font-size: 1em;
+}
+
+/* layout */
+.splitView {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    padding-top: 7ex;
+    overflow: hidden;
+    background-color: #efefef;
+    z-index: 32766;
+}
+
+.navView,
+/* editorView */
+.editorView,
+.sourceView,
+.renderView,
+/* aboutView */
+.aboutView,
+/* storageView */
+.storageView {
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+}
+
+/* navView layout */
+.navView {
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+}
+.navView > header {
+    float: left;
+    height: 100%;
+    width: 4em;
+    white-space: nowrap;
+    background-color: #fff;
+    border-right: 1px #e3e3e3 solid;
+}
+.navView > header * {
+    margin: 0;
+    padding: 0;
+}
+.navView > header > * {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.navView > header h1 {
+    height: 50px;
+    color: #fff;
+    font-size: 1em;
+    background-color: #333;
+    box-shadow: 0 0 3px #aaa;
+}
+.navView > header h1 span:before {
+    display: inline-block;
+    content: '';
+    height: 100%;
+    visibility: hidden;
+    vertical-align: middle;
+}
+.navView > header nav {
+    font-size: 85%;
+}
+.navView > header li {
+    list-style: none;
+}
+.navView > header label {
+    display: block;
+    padding: 1ex 0;
+    cursor: pointer;
+    border-bottom: 1px #ddd solid;
+}
+
+/* view switch */
+.navView > input {
+    display: none;
+}
+#switchEditorView:checked ~ * label[for="switchEditorView"],
+#switchStorageView:checked ~ * label[for="switchStorageView"],
+#switchAboutView:checked ~ * label[for="switchAboutView"] {
+    color: #fff;
+    font-weight: bold;
+    background-color: #926;
+}
+
+
+/* editorView layout */
+#switchEditorView:checked ~ .editorView {
+    display: block;
+}
+.editorView {
+    display: none;
+    padding-top: 50px;
+}
+.editorView > aside,
+.editorView > aside ul,
+.editorView > aside li {
+    margin: 0;
+    padding: 0;
+}
+.editorView > aside ul,
+.editorView > aside li {
+    height: 100%;
+}
+.editorView > aside {
+    position: absolute;
+    top: 0;
+    padding-left: 4em;
+    height: 50px;
+    width: 100%;
+}
+.editorView > aside ul {
+    padding: 0 1em;
+    text-align: right;
+    background-color: #f9f9f9;
+    border-bottom: 1px #e9e9e9 solid;
+}
+
+.sourceView > * {
+    margin: 0;
+    padding: 0;
+}
+.sourceView > p {
+    float: left;
+    height: 100%;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.sourceView textarea {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 1em;
+    font-size: 1em;
+    text-align: left;
+    border: 1px #e9e9e9 solid;
+    border-width: 0 0 0 1px;
+    resize: none;
+}
+
+.renderView > div {
+    height: 100%;
+    overflow: auto;
+    margin-left: 50%;
+    padding: 1em;
+}
+
+
+/* storageView layout */
+#switchStorageView:checked ~ .storageView {
+    display: block;
+}
+.storageView {
+    display: none;
+    padding-left: 4em;
+    white-space: normal;
+    word-wrap: break-word;
+}
+.storageView ul,
+.storageView li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.storageView ul {
+    padding-top: 1em;
+    text-align: left;
+    border-top: 1px #ddd solid;
+}
+.storageView li b {
+    font-size: 180%;
+}
+.storageView li sup {
+    float: right;
+    color: #666;
+    text-transform: uppercase;
+}
+.storageView li span {
+    display: block;
+    border: 1px magenta solid;
+}
+
+
+
+/* aboutView layout */
+#switchAboutView:checked ~ .aboutView {
+    display: block;
+}
+.aboutView {
+    display: none;
+    padding-left: 4em;
+    white-space: normal;
+    word-wrap: break-word;
+}
+.aboutView h2 {
+    margin: 0;
+    color: #333;
+    font-size: 200%;
+}
+.aboutView ul,
+.aboutView li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.aboutView ul {
+    color: #999;
+    text-align: left;
+}
+.aboutView li {
+    padding: 1em;
+}
+.aboutView li:nth-child(2n) {
+    background-color: #f9f9f9;
+}
+.aboutView li > span {
+    min-height: 65px;
+}
+.aboutView li a {
+    margin-right: 1ex;
+    color: #444;
+    font-size: 240%;
+}
+.aboutView li em {
+    color: #666;
+    letter-spacing: 1px;
+}
+
+/* class */
+.align-vcenter {
+    display: block;
+}
+.align-vcenter > * {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.align-vcenter > *:before {
+    display: inline-block;
+    content: '';
+    height: 100%;
+    visibility: hidden;
+    vertical-align: middle;
+}
+
+.bounds {
+    height: 100%;
+    width: 100%;
+    padding: 1em 3em;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.bounds * {
+    text-decoration: none;
+}
+.bounds h1 {
+    width: 80%;
+    margin: 0 auto;
+    color: #333;
+    font-size: 300%;
+}
