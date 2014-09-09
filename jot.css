@@ -1,0 +1,576 @@
+/* global styles */
+html * {
+    font-family: Times, serif;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html, 
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 auto;
+    color: #333;
+    font-size: 400%;
+}
+
+a {
+    color: #269;
+    transition-property: all;
+    transition-duration: .2s;
+    transition-timing-function: ease-out;
+}
+a:hover {
+    color: #926;
+}
+
+label {
+    cursor: pointer;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header * {
+    margin: 0;
+    padding: 0;
+}
+
+/* interaction elements */
+button {
+    padding: .2em .5em .25em;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-shadow: 0 0 1px rgba(0,0,0,.2);
+    background-color: #36c;
+    border: none;
+    border-radius: 3px;
+}
+button:hover {
+    background-color: #36f;
+}
+button:active {
+    background-color: #12c;
+}
+button.remove {
+    background-color: #c42;
+}
+button.remove:hover {
+    background-color: #f31;
+}
+button.remove:active {
+    background-color: #c21;
+}
+
+iframe {
+    display: block;
+    margin: 0;
+    padding: 0 0 0 3px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    border: none;
+}
+
+/* tooltip */
+.tooltip,
+.tooltip * {
+    margin: 0;
+    padding: 0;
+}
+.tooltip {
+    display: none;
+    position: absolute;
+    z-index: 32767;
+    max-width: 80%;
+    color: #fff;
+    font-size: .9em;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+.tooltip > * {
+    position: relative;
+    padding: .7em 1em !important;
+    text-transform: capitalize;
+    background-color: #000;
+    border-radius: 4px;
+}
+.tooltip > *:after {
+    position: absolute;
+    content: '';
+    border: 6px transparent solid;
+}
+.tooltip > .tooltipTop:after {
+    border-top-width: 0;
+}
+.tooltip > .tooltipLeft:after {
+    border-left-width: 0;
+}
+/* top allow */
+.tooltip > .tooltipTop:after {
+    top: -6px;
+    left: 20%;
+}
+.tooltip > .tooltipTop:after {
+    border-bottom: 6px #000 solid;
+}
+
+/* toolbar */
+.toolbar,
+.toolbar * {
+    margin: 0;
+    padding: 0;
+}
+.toolbar {
+    position: absolute;
+    z-index: 32764;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    text-align: right;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 3px rgba(240,240,240,.5);
+}
+.toolbar > ul,
+.toolbar > ul > li {
+    height: 100%;
+}
+.toolbar li {
+    text-align: left;
+}
+.toolbar > ul {
+    padding: 0 1em 0 5em;
+    border-bottom: 1px #e9e9e9 solid;
+}
+.toolbar > ul > li {
+    vertical-align: top;
+}
+.toolbar input[type="text"] {
+    width: 90%;
+    outline: none;
+    color: #888;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    text-shadow: 0 0 1px #fff;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px #ccc solid;
+}
+.toolbar input[type="text"]:focus {
+    color: #000;
+    border-bottom-color: #926;
+}
+.toolbar input[type="text"].conflicted {
+    color: #d00;
+    border-color: #d00;
+}
+.toolbar input[type="text"].conflicted + .tooltip {
+    display: block;
+}
+
+.toolbarPad {
+    padding-top: 40px;
+}
+
+.toolbarBtn {
+    display: inline-block;
+    padding: .25em .5em .2em !important;
+    color: #666;
+    font-size: 90%;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-shadow: 0 0 1px rgba(250,250,250,.8);
+    text-align: center;
+    background-color: #ececec;
+    border-radius: 2px;
+}
+.toolbarBtn:hover {
+    background-color: #ececec;
+}
+.toolbar input[type="checkbox"]:checked + .toolbarBtn,
+.toolbarBtn:active {
+    color: #333;
+    text-shadow: 0 0 3px rgba(255,255,255,.3);
+    background-color: #dfdfdf;
+    box-shadow: 
+        1px 1px 0 #fff,
+        inset 1px 1px 1px #bbb;
+}
+
+/* menu */
+.menu {
+    position: relative;
+}
+.menu > label > span:after {
+    display: inline-block;
+}
+.menu > input[type="checkbox"] {
+    display: none;
+}
+.menu > input[type="checkbox"]:checked ~ .menuItems {
+    display: block;
+}
+.menu .menuItems {
+    position: absolute;
+    display: none;
+    overflow: hidden;
+    line-height: 1;
+    background-color: #f9f9f9;
+    border: 1px #ddd solid;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 
+        1px 2px 2px rgba(240,240,240,.3),
+        -1px 2px 2px rgba(240,240,240,.3);
+}
+.menu:last-child .menuItems {
+    right: 0;
+}
+.menu .menuItems > * > label {
+    display: block;
+    padding: 5px 1em 5px .5em;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.menu .menuItems > * > label:hover {
+    background-color: #f0f0f0;
+}
+.menu .menuItems > * > label:before {
+    display: inline-block;
+    content: '\2713';
+    padding-right: 5px;
+    color: #666;
+    font-family: Helvetica;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+/* layout */
+section {
+    display: none;
+    height: 100%;
+    width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.splitView {
+    display: block;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+}
+
+.navView,
+.sourceView,
+.renderView {
+    height: 100%;
+    width: 100%;
+}
+
+/* navView layout */
+.navView {
+    position: relative;
+    z-index: 32765;
+    float: left;
+    height: 100%;
+    width: 4em;
+    white-space: nowrap;
+    background-color: #fff;
+    border-right: 1px #e3e3e3 solid;
+}
+.navView > * {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.navView h1 {
+    position: relative;
+    z-index: 32766;
+    height: 40px;
+    color: #fff;
+    font-size: 1.2em;
+    background-color: #333;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+}
+.navView h1 label:before {
+    display: inline-block;
+    content: '';
+    height: 100%;
+    visibility: hidden;
+    vertical-align: middle;
+}
+.navView nav {
+    font-size: 85%;
+}
+.navView nav label {
+    display: block;
+    padding: 1ex 0;
+    color: #444;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 1px #ddd solid;
+}
+
+/* view switch */
+.splitView > input[type="radio"],
+.editorView > input[type="radio"] {
+    display: none;
+}
+
+#openAbout:checked ~ header h1,
+#openEditor:checked ~ header label[for="openEditor"],
+#openStorage:checked ~ header label[for="openStorage"] {
+    color: #fff;
+    background-color: #926;
+}
+#openAbout:checked ~ .aboutView {
+    display: block;
+}
+#openEditor:checked ~ .editorView {
+    display: block;
+}
+#openStorage:checked ~ .storageView {
+    display: block;
+}
+
+
+/* editorView layout */
+.editorView {
+    display: none;
+}
+.editorView .toolbar .sourceTitle {
+    float: left;
+    width: 40%;
+    min-width: 120px;
+}
+
+.sourceView > * {
+    margin: 0;
+    padding: 0;
+}
+.sourceView > p {
+    float: left;
+    height: 100%;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.sourceView > p textarea {
+    display: block;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    font-family: sans-serif;
+    font-size: .9em;
+    text-align: left;
+    line-height: 140%;
+    outline: none;
+    border: none;
+    resize: none;
+}
+
+.renderView > div {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    border-left: 1px #ddd solid;
+}
+.renderView .resizeKnob {
+    position: absolute;
+    z-index: 32763;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    cursor: col-resize;
+    height: 100%;
+    width: 3px;
+    overflow: hidden;
+    background-color: #eee;
+}
+.renderView .trackingSheet {
+    position: absolute;
+    display: none;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+#renderNone:checked ~ * label[for="renderNone"]:before,
+#renderHTML:checked ~ * label[for="renderHTML"]:before,
+#renderMarkdown:checked ~ * label[for="renderMarkdown"]:before {
+    visibility: visible;
+}
+#renderHTML:checked ~ * label[for="renderMenu"] span:after {
+    content: ': HTML';
+}
+#renderMarkdown:checked ~ * label[for="renderMenu"] span:after {
+    content: ': Markdown';
+}
+#renderNone:checked ~ * label[for="renderMenu"] span:after {
+    content: ': None';
+}
+
+#renderNone:checked ~ .sourceView > p .resizeKnob,
+#renderNone:checked ~ .sourceView .renderView {
+    display: none;
+}
+#renderNone:checked ~ .sourceView > p {
+    float: none;
+    width: auto !important;
+}
+
+/* storageView layout */
+.chunkView ul,
+.chunkView li {
+    margin: 0;
+    padding: 0;
+}
+.chunkView ul {
+    width: 100%;
+    text-align: left;
+}
+.chunkView li {
+    display: inline-block;
+    width: 20%;
+    padding: 1em;
+    vertical-align: top;
+    border-top: 1px #efefef solid;
+}
+.chunkTitle {
+    cursor: pointer;
+    font-size: 140%;
+}
+.chunkDate {
+    color: #999;
+}
+.chunkAction {
+    display: none;
+    float: right;
+    color: #555;
+    text-transform: uppercase;
+}
+.chunkView li:hover .chunkAction {
+    display: inline-block;
+}
+
+@media screen and (max-width: 1920px){
+    .chunkView li {
+        width: 25%;
+    }
+}
+@media screen and (max-width: 1440px){
+    .chunkView li {
+        width: 33%;
+    }
+}
+@media screen and (max-width: 1024px){
+    .chunkView li {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 768px){
+    .chunkView li {
+        width: 100%;
+    }
+}
+
+/* aboutView layout */
+.aboutView h1 {
+    margin-top: 7%;
+}
+.aboutView p {
+    font-size: 120%;
+}
+.aboutView h2 {
+    width: 85%;
+    max-width: 700px;
+    margin: 0 auto 1ex;
+    padding: 1ex;
+    color: #666;
+    font-size: 140%;
+    font-weight: normal;
+}
+.aboutView h2:before,
+.aboutView h2:after {
+    content: '\263a';
+    padding: 0 4px;
+}
+.aboutView ul,
+.aboutView li {
+    margin: 0;
+    padding: 0;
+}
+.aboutView ul {
+    min-width: 250px;
+    max-width: 500px;
+    margin: 0 auto;
+    color: #555;
+}
+.aboutView li {
+    padding: 1em;
+    line-height: 140%;
+    border-top: 1px #efefef solid;
+}
+.aboutView li h3 {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 200%;
+    font-weight: normal;
+}
+.aboutView li em {
+    color: #666;
+    font-size: 120%;
+    letter-spacing: 1px;
+}
+
+/* class */
+.alignMiddle {
+    display: block;
+}
+.alignMiddle > * {
+    display: inline-block;
+    height: 100%;
+}
+.alignMiddle > *:before {
+    display: inline-block;
+    content: '';
+    height: 100%;
+    visibility: hidden;
+    vertical-align: middle;
+}
+.alignMiddle > * > * {
+    vertical-align: middle;
+}
+
+.bounds {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.bounds * {
+    text-decoration: none;
+}
+
+

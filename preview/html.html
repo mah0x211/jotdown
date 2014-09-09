@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sandbox</title>
+<script type="text/javascript" charset="UTF-8" src="../js/events.js"></script>
+<script>
+var SANDBOX = document.createDocumentFragment(),
+    BODY, PARENT;
+
+function receiveMessage( evt ){
+    var data = evt.data;
+    SANDBOX.innerHTML = evt.data.src;
+    BODY.innerHTML = SANDBOX.innerHTML;
+}
+function main(){
+    evtRemoveListener( this, 'load' );
+    PARENT = this.parent;
+    BODY = document.querySelector('body');
+    evtAddListener( this, 'message', receiveMessage );
+    PARENT.postMessage( 'message', '*' );
+}
+evtAddListener( window, 'load', main );
+</script>
+</head>
+<body></body>
+</html>

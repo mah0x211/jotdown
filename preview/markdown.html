@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sandbox</title>
+<link rel="stylesheet" type="text/css" href="https://rawgithub.com/revolunet/sublimetext-markdown-preview/master/github.css" />
+<style>
+body {
+    margin: auto;
+    padding: 1em;
+    width: auto;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+}
+body * {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+    box-sizing: border-box;
+}
+.markdown-body {
+    display: block;
+    width: 100%;
+    border: none;
+}
+</style>
+<script type="text/javascript" charset="UTF-8" src="../js/events.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://rawgithub.com/chjj/marked/master/marked.min.js"></script>
+<script>
+var SANDBOX = document.createDocumentFragment(),
+    BODY, PARENT;
+
+function receiveMessage( evt ){
+    var data = evt.data;
+    SANDBOX.innerHTML = marked( evt.data.src );
+    BODY.innerHTML = '<div class="markdown-body">' + SANDBOX.innerHTML + '</div>';
+}
+
+function main()
+{
+    evtRemoveListener( this, 'load' );
+
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+    });
+    PARENT = this.parent;
+    BODY = document.querySelector('body');
+    evtAddListener( this, 'message', receiveMessage );
+    PARENT.postMessage( 'message', '*' );
+}
+evtAddListener( window, 'load', main );
+</script>
+</head>
+<body></body>
+</html>
