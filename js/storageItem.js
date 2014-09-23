@@ -66,10 +66,11 @@ function StorageItem( obj )
             if( typeof newSrc !== 'string' ){
                 throw new TypeError('StorageItem.src must be type of string' );
             }
-            
-            rec.epoch = Date.now();
-            rec.src = newSrc;
-            return StorageController.saveItem( rec.name, rec );
+            else if( rec.src !== newSrc ){
+                rec.epoch = Date.now();
+                rec.src = newSrc;
+                return StorageController.saveItem( rec.name, rec );
+            }
         }
     );
 }
